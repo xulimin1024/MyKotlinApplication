@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mykotlinapplication.adapter.ForeCastListAdapter
 import com.example.mykotlinapplication.bean.Forcast
+import com.example.mykotlinapplication.databinding.ActivityMainBinding
 
 import com.example.mykotlinapplication.net.Request
 import kotlinx.android.synthetic.main.activity_main.*
@@ -47,33 +48,16 @@ class MainActivity : AppCompatActivity() {
         Forcast(str, Date(), 12.4f, "今天有点冷啊"),
         Forcast(str, Date(), 12.4f, "今天有点冷啊")
     )
-    val url = "https://api.apiopen.top/getJoke?page=1&count=2&type=video"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-//        thread {
-//            Request(url).run()
-//        }
-//            async {
-//                Request(url).run()
-//                uiThread {
-//                    toast("执行了请求")
-//                }
-//            }
-//        doAsyncResult {
-//            val runResult = Request(url).runResult()
-//            uiThread {
-//                    toast(runResult)
-//                }
-//
-//        }
+        val binding =  ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         forecastList.layoutManager = LinearLayoutManager(this)
         forecastList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         val adapter = ForeCastListAdapter(this,items) { toast("${it}我被点击了") }
         forecastList.adapter = adapter
-
 
     }
 

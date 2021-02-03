@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mykotlinapplication.R
 import com.example.mykotlinapplication.bean.Forcast
+import com.example.mykotlinapplication.databinding.ForecastItemBinding
 
 
 class ForeCastListAdapter(
@@ -20,13 +21,13 @@ class ForeCastListAdapter(
     val itemClick: (String) -> Unit
 ) : RecyclerView.Adapter<ForeCastListAdapter.ViewHolder>() {
 
-    inner class ViewHolder(var view: View, itemClick: (String) -> Unit) :
-        RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(var binding: ForecastItemBinding, itemClick: (String) -> Unit) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        private var tvdata: TextView = view.findViewById(R.id.tvdate)
-        private var tvtempature: TextView = view.findViewById(R.id.tvtempature)
-        private var tvdeatil: TextView = view.findViewById(R.id.tvdeatil)
-        private var imageView: ImageView = view.findViewById(R.id.imageView)
+        private var tvdata: TextView = binding.tvdate
+        private var tvtempature: TextView = binding.tvtempature
+        private var tvdeatil: TextView = binding.tvdeatil
+        private var imageView: ImageView = binding.imageView
 
         //绑定view
         fun bindForecastView(forcast: Forcast) {
@@ -53,10 +54,10 @@ class ForeCastListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ForecastItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+       // var itemView = LayoutInflater.from(mContext).inflate(R.layout.forecast_item, null)
 
-        var itemView = LayoutInflater.from(mContext).inflate(R.layout.forecast_item, null)
-
-        return ViewHolder(itemView,itemClick)
+        return ViewHolder(binding,itemClick)
     }
 
     override fun getItemCount() = items.size
